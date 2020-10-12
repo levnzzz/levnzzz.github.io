@@ -1,0 +1,255 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JDK、JRE、JVM作用与联系 | OnePiece</title><meta name="keywords" content="Java"><meta name="author" content="不想画CAD"><meta name="copyright" content="不想画CAD"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="Java程序的执行Java源文件的执行过程为：  使用编辑器编写Java源文件main.java  程序编译为字节码文件，javac编译源文件为main.class  类文件在任意操作系统上由JVM运行  JVM将字节码翻译成及其可以执行的机器码（0，1二进制）    什么是JVM​        JVM是java虚拟机的缩写。所有Java程序首先被编译为*.class的类文件，然后这类文件只能在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JDK、JRE、JVM作用与联系">
+<meta property="og:url" content="http://example.com/jdk%E3%80%81jre%E3%80%81jvm%E4%BD%9C%E7%94%A8%E4%B8%8E%E8%81%94%E7%B3%BB/Java_SE/Java/Java-SE/index.html">
+<meta property="og:site_name" content="OnePiece">
+<meta property="og:description" content="Java程序的执行Java源文件的执行过程为：  使用编辑器编写Java源文件main.java  程序编译为字节码文件，javac编译源文件为main.class  类文件在任意操作系统上由JVM运行  JVM将字节码翻译成及其可以执行的机器码（0，1二进制）    什么是JVM​        JVM是java虚拟机的缩写。所有Java程序首先被编译为*.class的类文件，然后这类文件只能在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/10/07/E3s59nouImeTp2f.png">
+<meta property="article:published_time" content="2020-10-12T07:16:41.000Z">
+<meta property="article:modified_time" content="2020-10-12T07:19:24.849Z">
+<meta property="article:author" content="不想画CAD">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/10/07/E3s59nouImeTp2f.png"><link rel="shortcut icon" href="https://i.loli.net/2020/10/11/SihaqID2rXypTtj.jpg"><link rel="canonical" href="http://example.com/jdk%E3%80%81jre%E3%80%81jvm%E4%BD%9C%E7%94%A8%E4%B8%8E%E8%81%94%E7%B3%BB/Java_SE/Java/Java-SE/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.2.0',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: undefined,
+  isSidebar: true,
+  postUpdate: '2020-10-12 15:19:24'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {
+  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }
+})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://i.loli.net/2020/10/11/SihaqID2rXypTtj.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">3</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">3</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">6</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%89%A7%E8%A1%8C"><span class="toc-number">1.</span> <span class="toc-text">Java程序的执行</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFJVM"><span class="toc-number">2.</span> <span class="toc-text">什么是JVM</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#JVM%E7%BB%93%E6%9E%84"><span class="toc-number">2.1.</span> <span class="toc-text">JVM结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Class-Loader"><span class="toc-number">2.1.1.</span> <span class="toc-text">Class Loader</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JVM-Memory-Areas"><span class="toc-number">2.1.2.</span> <span class="toc-text">JVM Memory Areas</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JVM-Execution-Engine%EF%BC%88%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">JVM Execution Engine（执行引擎）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Interpreter-%E8%A7%A3%E9%87%8A%E5%99%A8"><span class="toc-number">2.2.1.</span> <span class="toc-text">Interpreter(解释器)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JIT-Compiler%EF%BC%88%E5%8D%B3%E6%97%B6%E7%BC%96%E8%AF%91%E5%99%A8%EF%BC%89"><span class="toc-number">2.2.2.</span> <span class="toc-text">JIT Compiler（即时编译器）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFJRE"><span class="toc-number">3.</span> <span class="toc-text">什么是JRE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFJDK"><span class="toc-number">4.</span> <span class="toc-text">什么是JDK</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Jdk-JRE-JVM%E4%B9%8B%E9%97%B4%E7%9A%84%E5%B7%AE%E5%BC%82"><span class="toc-number">5.</span> <span class="toc-text">Jdk JRE JVM之间的差异</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JDK-JRE-JVM%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="toc-number">6.</span> <span class="toc-text">JDK JRE JVM面试题</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://i.loli.net/2020/10/07/E3s59nouImeTp2f.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">OnePiece</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">JDK、JRE、JVM作用与联系</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-10-12T07:16:41.000Z" title="发表于 2020-10-12 15:16:41">2020-10-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-10-12T07:19:24.849Z" title="更新于 2020-10-12 15:19:24">2020-10-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/Java-SE/">Java SE</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1 id="Java程序的执行"><a href="#Java程序的执行" class="headerlink" title="Java程序的执行"></a>Java程序的执行</h1><p><code>Java</code>源文件的执行过程为：</p>
+<ol>
+<li><p>使用编辑器编写<code>Java</code>源文件<code>main.java</code></p>
+</li>
+<li><p>程序编译为字节码文件，<code>javac</code>编译源文件为<code>main.class</code></p>
+</li>
+<li><p>类文件在任意操作系统上由<code>JVM</code>运行</p>
+</li>
+<li><p><code>JVM</code>将字节码翻译成及其可以执行的机器码（0，1二进制）</p>
+</li>
+</ol>
+<p><img src="https://i.loli.net/2020/10/07/E3s59nouImeTp2f.png" alt="Java-Execution-Flow.png"></p>
+<h1 id="什么是JVM"><a href="#什么是JVM" class="headerlink" title="什么是JVM"></a>什么是JVM</h1><p>​        <code>JVM</code>是<code>java</code>虚拟机的缩写。所有<code>Java</code>程序首先被编译为*<em><code>.class</code><strong>的类文件，然后这类文件只能在虚拟机上运行，通过虚拟机间接与操作系统交互，将虚拟机程序解释给本地执行。<code>JVM</code>是<code>java</code>平台的基础，和实际的及其一样，他有自己的指令集，并且在</strong></em>运行时候操作不同的内存区域。***</p>
+<p>​        <code>JVM</code>主要工作就是解释自己的指令集（字节码）到CPU的指令集或操作系统对应的系统调用，保护用户被恶意程序骚扰。<code>JVM</code>使用了许多高级的技术提高<code>java</code>性能，包括先进的<strong>内存模型</strong>，<strong>GC</strong>垃圾回收机制，<strong>自适应优化器</strong>。</p>
+<h2 id="JVM结构"><a href="#JVM结构" class="headerlink" title="JVM结构"></a>JVM结构</h2><p><img src="https://i.loli.net/2020/10/07/T9MUcXgl6vqOs35.png" alt="JVM-Architecture.png"></p>
+<h3 id="Class-Loader"><a href="#Class-Loader" class="headerlink" title="Class Loader"></a>Class Loader</h3><p>​        类装载器是用于加载文件的一个子系统，功能有：<code>loading</code>，<code>linking</code>，<code>initialization</code></p>
+<ul>
+<li><code>Loading</code><ol>
+<li>加载类，三招加载方式：<code>Bootstrap</code>,<code>extension</code>,<code>application</code>；</li>
+<li>当加载类文件时，<code>JVM</code>会找到某个任意类的依赖项；</li>
+<li>第一个引导类载入器试图查找类，它会扫描lib文件夹下的rt.jar文件</li>
+<li>如果没有找到类，则<code>extension</code>类加载器会在<code>lib\ext</code>文件下查找该类、<code>application</code>类加载器会在系统<code>classpath</code>环境变量中查询所有的Jar文件和类。</li>
+<li>如果找不到类，抛出异常：<code>ClassNotFoundException</code></li>
+</ol>
+</li>
+<li><code>Linking</code><ol>
+<li>类加载完后，执行<code>Linking</code>，一个字节码验证器将验证生成的字节码是否正确，如果验证失败，得到一个验证错误。此时还将内存分配给类中的静态变量和静态方法。</li>
+</ol>
+</li>
+<li><code>Initialization</code><ol>
+<li>左后所有静态变量被赋予初始值，并执行静态代码块。</li>
+</ol>
+</li>
+</ul>
+<h3 id="JVM-Memory-Areas"><a href="#JVM-Memory-Areas" class="headerlink" title="JVM Memory Areas"></a>JVM Memory Areas</h3><p>​        <code>JVM</code>内存区域被分割成多个部分来存储应用程序数据的特定部分。</p>
+<ul>
+<li><em>Method Area</em>:存储像元数据，常量运行池，方法代码的结构</li>
+<li><code>Heap</code>（堆区）：存储程序运行时被创建的所有对象；</li>
+<li><code>Stack</code>（栈区）：存储本地变量和中间结果。所有这些变量都是创建他们的线程的本地变量。每个<strong>线程</strong>都有自己的JAVA stack，在创建线程时该区域被创建，所有这些本地变量被称为：<strong>线程本地变量</strong>；</li>
+<li>PC register<strong>程序计数器</strong>：存储当前正在执行语句的物理内存地址，在<code>Java</code>中每一个线程都有自己独立的PC register</li>
+<li><code>Java</code>支持并可以使用本地代码。许多底层代码由C/C++编写。本地方法栈保存本地代码的指令。</li>
+</ul>
+<h2 id="JVM-Execution-Engine（执行引擎）"><a href="#JVM-Execution-Engine（执行引擎）" class="headerlink" title="JVM Execution Engine（执行引擎）"></a>JVM Execution Engine（执行引擎）</h2><p>​        所有分配给<code>JVM</code>的代码都有Execution Engine（执行引擎）执行，执行引擎读取字节码并逐个执行。它使用两个内置的解释器和<code>JIT</code>编译器将字节码转换成机器码并执行它。</p>
+<p><img src="https://i.loli.net/2020/10/07/SpBwu5TIezvUjPJ.png" alt="OS-Specific-Interpreters.png"></p>
+<h3 id="Interpreter-解释器"><a href="#Interpreter-解释器" class="headerlink" title="Interpreter(解释器)"></a>Interpreter(解释器)</h3><p>​    通过查找预定义的<code>JVM</code>指令到机器指令的映射，<code>JVM</code>解释器可以将每个字节码指令转换成相应的本地指令。它直接执行字节码，不执行任何优化。</p>
+<h3 id="JIT-Compiler（即时编译器）"><a href="#JIT-Compiler（即时编译器）" class="headerlink" title="JIT Compiler（即时编译器）"></a>JIT Compiler（即时编译器）</h3><ul>
+<li>为了提高效率，<code>JIT Compiler</code>在运行时与JVM交互，并且适当将字节码序列编译为本地机器代码。典型的，<code>JIT Compiler</code>执行一段代码，优化代码，并将其翻译为机器代码。</li>
+<li><code>JIT Compiler</code>是默认开启的，可以禁用。</li>
+</ul>
+<h1 id="什么是JRE"><a href="#什么是JRE" class="headerlink" title="什么是JRE"></a>什么是JRE</h1><p>​    JRE是一个捆绑了<code>JVM</code>和<code>libraries</code>的软件包。任何执行<code>Java</code>的程序，都需要在机器上装<code>JRE</code>，这是最低要求。</p>
+<h1 id="什么是JDK"><a href="#什么是JDK" class="headerlink" title="什么是JDK"></a>什么是JDK</h1><p>​        <code>JDK</code>是<code>JRE</code>的超集，<code>JDk</code>包含了<code>JRE</code>的所有开发，调试和监视应用程序的工具。当要开发<code>Java</code>应用程序时，需要安装<code>JDK</code>。</p>
+<h1 id="Jdk-JRE-JVM之间的差异"><a href="#Jdk-JRE-JVM之间的差异" class="headerlink" title="Jdk JRE JVM之间的差异"></a>Jdk JRE JVM之间的差异</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">JRE = JVM + libraries to run Java Application</span><br><span class="line">JDK = JRE + tools to develop Java Application</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/10/07/2lfKqG1wFZ3UVaD.png" alt="JDK-JRE-JVM.png"></p>
+<h1 id="JDK-JRE-JVM面试题"><a href="#JDK-JRE-JVM面试题" class="headerlink" title="JDK JRE JVM面试题"></a>JDK JRE JVM面试题</h1><ul>
+<li><p><code>Jav</code>a中的类加载器有几种</p>
+<ol>
+<li><code>Bootstrap</code></li>
+<li><code>extendsion</code></li>
+<li><code>application</code></li>
+</ol>
+</li>
+<li><p>类加载如何工作的`</p>
+<p>​    类加载器扫描预定义的jar文件和类的位置。他们扫描路径中的所有类文件并寻找所需的类。如果发现则加载类，链接并初始化类文件。</p>
+</li>
+<li><p><code>JRE</code>和<code>JVM</code>的不同</p>
+<p>JVM是运行时环境的规范，它执行<code>Java</code>应用程序。<code>Hotspot JVM</code>就是这种规范的一种实现。</p>
+</li>
+<li><p><code>interpreter</code>和<code>JIT compiler</code>的不同</p>
+<p><code>interpreter</code>逐行解释字节码并按顺序执行，这会导致性能低下。<code>JIT compiler</code>通过在块中分析代码并在这过程中添加优化，然后编译为更优化的机器码。</p>
+</li>
+</ul>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">不想画CAD</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/jdk%E3%80%81jre%E3%80%81jvm%E4%BD%9C%E7%94%A8%E4%B8%8E%E8%81%94%E7%B3%BB/Java_SE/Java/Java-SE/">http://example.com/jdk、jre、jvm作用与联系/Java_SE/Java/Java-SE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">OnePiece</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/10/07/E3s59nouImeTp2f.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/%E4%BB%8E%E6%AD%A4%E6%88%91%E7%88%B1%E4%B8%8A%E7%9A%84%E4%BA%BA%E7%9A%84%E4%BA%BA%E9%83%BD%E5%BE%88%E5%83%8F%E4%BD%A0/love_letter/%E9%9A%8F%E7%AC%94/%E5%BD%B1%E8%AF%84/"><img class="next-cover" src="https://i.loli.net/2020/10/11/OIgBKtbMmspLyUQ.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">从此我爱上的人的人都很像你</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></article></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 By 不想画CAD</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Forever Youthful Forever Weeping</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const initData = {
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'en',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

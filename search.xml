@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>JDK、JRE、JVM作用与联系</title>
+      <link href="jdk%E3%80%81jre%E3%80%81jvm%E4%BD%9C%E7%94%A8%E4%B8%8E%E8%81%94%E7%B3%BB/Java_SE/Java/Java-SE/"/>
+      <url>jdk%E3%80%81jre%E3%80%81jvm%E4%BD%9C%E7%94%A8%E4%B8%8E%E8%81%94%E7%B3%BB/Java_SE/Java/Java-SE/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Java程序的执行"><a href="#Java程序的执行" class="headerlink" title="Java程序的执行"></a>Java程序的执行</h1><p><code>Java</code>源文件的执行过程为：</p><ol><li><p>使用编辑器编写<code>Java</code>源文件<code>main.java</code></p></li><li><p>程序编译为字节码文件，<code>javac</code>编译源文件为<code>main.class</code></p></li><li><p>类文件在任意操作系统上由<code>JVM</code>运行</p></li><li><p><code>JVM</code>将字节码翻译成及其可以执行的机器码（0，1二进制）</p></li></ol><p><img src="https://i.loli.net/2020/10/07/E3s59nouImeTp2f.png" alt="Java-Execution-Flow.png"></p><h1 id="什么是JVM"><a href="#什么是JVM" class="headerlink" title="什么是JVM"></a>什么是JVM</h1><p>​        <code>JVM</code>是<code>java</code>虚拟机的缩写。所有<code>Java</code>程序首先被编译为*<em><code>.class</code><strong>的类文件，然后这类文件只能在虚拟机上运行，通过虚拟机间接与操作系统交互，将虚拟机程序解释给本地执行。<code>JVM</code>是<code>java</code>平台的基础，和实际的及其一样，他有自己的指令集，并且在</strong></em>运行时候操作不同的内存区域。***</p><p>​        <code>JVM</code>主要工作就是解释自己的指令集（字节码）到CPU的指令集或操作系统对应的系统调用，保护用户被恶意程序骚扰。<code>JVM</code>使用了许多高级的技术提高<code>java</code>性能，包括先进的<strong>内存模型</strong>，<strong>GC</strong>垃圾回收机制，<strong>自适应优化器</strong>。</p><h2 id="JVM结构"><a href="#JVM结构" class="headerlink" title="JVM结构"></a>JVM结构</h2><p><img src="https://i.loli.net/2020/10/07/T9MUcXgl6vqOs35.png" alt="JVM-Architecture.png"></p><h3 id="Class-Loader"><a href="#Class-Loader" class="headerlink" title="Class Loader"></a>Class Loader</h3><p>​        类装载器是用于加载文件的一个子系统，功能有：<code>loading</code>，<code>linking</code>，<code>initialization</code></p><ul><li><code>Loading</code><ol><li>加载类，三招加载方式：<code>Bootstrap</code>,<code>extension</code>,<code>application</code>；</li><li>当加载类文件时，<code>JVM</code>会找到某个任意类的依赖项；</li><li>第一个引导类载入器试图查找类，它会扫描lib文件夹下的rt.jar文件</li><li>如果没有找到类，则<code>extension</code>类加载器会在<code>lib\ext</code>文件下查找该类、<code>application</code>类加载器会在系统<code>classpath</code>环境变量中查询所有的Jar文件和类。</li><li>如果找不到类，抛出异常：<code>ClassNotFoundException</code></li></ol></li><li><code>Linking</code><ol><li>类加载完后，执行<code>Linking</code>，一个字节码验证器将验证生成的字节码是否正确，如果验证失败，得到一个验证错误。此时还将内存分配给类中的静态变量和静态方法。</li></ol></li><li><code>Initialization</code><ol><li>左后所有静态变量被赋予初始值，并执行静态代码块。</li></ol></li></ul><h3 id="JVM-Memory-Areas"><a href="#JVM-Memory-Areas" class="headerlink" title="JVM Memory Areas"></a>JVM Memory Areas</h3><p>​        <code>JVM</code>内存区域被分割成多个部分来存储应用程序数据的特定部分。</p><ul><li><em>Method Area</em>:存储像元数据，常量运行池，方法代码的结构</li><li><code>Heap</code>（堆区）：存储程序运行时被创建的所有对象；</li><li><code>Stack</code>（栈区）：存储本地变量和中间结果。所有这些变量都是创建他们的线程的本地变量。每个<strong>线程</strong>都有自己的JAVA stack，在创建线程时该区域被创建，所有这些本地变量被称为：<strong>线程本地变量</strong>；</li><li>PC register<strong>程序计数器</strong>：存储当前正在执行语句的物理内存地址，在<code>Java</code>中每一个线程都有自己独立的PC register</li><li><code>Java</code>支持并可以使用本地代码。许多底层代码由C/C++编写。本地方法栈保存本地代码的指令。</li></ul><h2 id="JVM-Execution-Engine（执行引擎）"><a href="#JVM-Execution-Engine（执行引擎）" class="headerlink" title="JVM Execution Engine（执行引擎）"></a>JVM Execution Engine（执行引擎）</h2><p>​        所有分配给<code>JVM</code>的代码都有Execution Engine（执行引擎）执行，执行引擎读取字节码并逐个执行。它使用两个内置的解释器和<code>JIT</code>编译器将字节码转换成机器码并执行它。</p><p><img src="https://i.loli.net/2020/10/07/SpBwu5TIezvUjPJ.png" alt="OS-Specific-Interpreters.png"></p><h3 id="Interpreter-解释器"><a href="#Interpreter-解释器" class="headerlink" title="Interpreter(解释器)"></a>Interpreter(解释器)</h3><p>​    通过查找预定义的<code>JVM</code>指令到机器指令的映射，<code>JVM</code>解释器可以将每个字节码指令转换成相应的本地指令。它直接执行字节码，不执行任何优化。</p><h3 id="JIT-Compiler（即时编译器）"><a href="#JIT-Compiler（即时编译器）" class="headerlink" title="JIT Compiler（即时编译器）"></a>JIT Compiler（即时编译器）</h3><ul><li>为了提高效率，<code>JIT Compiler</code>在运行时与JVM交互，并且适当将字节码序列编译为本地机器代码。典型的，<code>JIT Compiler</code>执行一段代码，优化代码，并将其翻译为机器代码。</li><li><code>JIT Compiler</code>是默认开启的，可以禁用。</li></ul><h1 id="什么是JRE"><a href="#什么是JRE" class="headerlink" title="什么是JRE"></a>什么是JRE</h1><p>​    JRE是一个捆绑了<code>JVM</code>和<code>libraries</code>的软件包。任何执行<code>Java</code>的程序，都需要在机器上装<code>JRE</code>，这是最低要求。</p><h1 id="什么是JDK"><a href="#什么是JDK" class="headerlink" title="什么是JDK"></a>什么是JDK</h1><p>​        <code>JDK</code>是<code>JRE</code>的超集，<code>JDk</code>包含了<code>JRE</code>的所有开发，调试和监视应用程序的工具。当要开发<code>Java</code>应用程序时，需要安装<code>JDK</code>。</p><h1 id="Jdk-JRE-JVM之间的差异"><a href="#Jdk-JRE-JVM之间的差异" class="headerlink" title="Jdk JRE JVM之间的差异"></a>Jdk JRE JVM之间的差异</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">JRE = JVM + libraries to run Java Application</span><br><span class="line">JDK = JRE + tools to develop Java Application</span><br></pre></td></tr></table></figure><p><img src="https://i.loli.net/2020/10/07/2lfKqG1wFZ3UVaD.png" alt="JDK-JRE-JVM.png"></p><h1 id="JDK-JRE-JVM面试题"><a href="#JDK-JRE-JVM面试题" class="headerlink" title="JDK JRE JVM面试题"></a>JDK JRE JVM面试题</h1><ul><li><p><code>Jav</code>a中的类加载器有几种</p><ol><li><code>Bootstrap</code></li><li><code>extendsion</code></li><li><code>application</code></li></ol></li><li><p>类加载如何工作的`</p><p>​    类加载器扫描预定义的jar文件和类的位置。他们扫描路径中的所有类文件并寻找所需的类。如果发现则加载类，链接并初始化类文件。</p></li><li><p><code>JRE</code>和<code>JVM</code>的不同</p><p>JVM是运行时环境的规范，它执行<code>Java</code>应用程序。<code>Hotspot JVM</code>就是这种规范的一种实现。</p></li><li><p><code>interpreter</code>和<code>JIT compiler</code>的不同</p><p><code>interpreter</code>逐行解释字节码并按顺序执行，这会导致性能低下。<code>JIT compiler</code>通过在块中分析代码并在这过程中添加优化，然后编译为更优化的机器码。</p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+          <category> Java SE </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>从此我爱上的人的人都很像你</title>
       <link href="%E4%BB%8E%E6%AD%A4%E6%88%91%E7%88%B1%E4%B8%8A%E7%9A%84%E4%BA%BA%E7%9A%84%E4%BA%BA%E9%83%BD%E5%BE%88%E5%83%8F%E4%BD%A0/love_letter/%E9%9A%8F%E7%AC%94/%E5%BD%B1%E8%AF%84/"/>
       <url>%E4%BB%8E%E6%AD%A4%E6%88%91%E7%88%B1%E4%B8%8A%E7%9A%84%E4%BA%BA%E7%9A%84%E4%BA%BA%E9%83%BD%E5%BE%88%E5%83%8F%E4%BD%A0/love_letter/%E9%9A%8F%E7%AC%94/%E5%BD%B1%E8%AF%84/</url>
