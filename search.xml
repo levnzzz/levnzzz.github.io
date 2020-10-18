@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>CPU的两种设计方式</title>
+      <link href="cpu%E7%9A%84%E4%B8%A4%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%96%B9%E5%BC%8F/408-1/uncategorized/"/>
+      <url>cpu%E7%9A%84%E4%B8%A4%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%96%B9%E5%BC%8F/408-1/uncategorized/</url>
+      
+        <content type="html"><![CDATA[<h1 id="硬布线逻辑设计CPU"><a href="#硬布线逻辑设计CPU" class="headerlink" title="硬布线逻辑设计CPU"></a>硬布线逻辑设计CPU</h1><p>​        硬布线逻辑又称组合逻辑设计，通过指令操作码译码，直接发出各个周期的各种信号。硬布线逻辑的优点是逻辑清晰，执行速度快，缺点是线路结构复杂，也不规范，可更改性差。</p><p>​        设计组合逻辑CPU的主要步骤包括：</p><ul><li>分析指令系统，得出对数据通路的要求</li><li>为数据通路选择合适的组件</li><li>链接组件建立数据通路</li><li>分析每条指令的实现，已确定控制型号</li><li>集成控制信号，形成完整的控制逻辑</li></ul><hr><h2 id="硬布线逻辑逻辑"><a href="#硬布线逻辑逻辑" class="headerlink" title="硬布线逻辑逻辑"></a>硬布线逻辑逻辑</h2><p><img src="https://i.loli.net/2020/10/18/9eqwQARTrHsvfI5.png" alt="WeChatcf0a2bc7664665e29990d8241a7c04f5.png"></p><p>​        通过操作码，状态码进行逻辑运算，CU<strong>（控制单元）</strong>每个时钟周期发出一组控制信号，形成完整的控制逻辑。</p><h2 id="微操作的节拍安排"><a href="#微操作的节拍安排" class="headerlink" title="微操作的节拍安排"></a>微操作的节拍安排</h2><p>​        每个时钟周期一般包含几个微操作，往往有如下规则：</p><ul><li>有些微操作有先后顺序，必须严格遵守</li><li>能在一个时钟周期执行的微操作，尽量安排在一个时钟周期内</li></ul><h3 id="单周期处理器"><a href="#单周期处理器" class="headerlink" title="单周期处理器"></a>单周期处理器</h3><p>​        单周期处理器中，所有微操作都在一个时钟周期中。例如一下，一个简单的MIPS处理器，现在需要安排控制信号。</p><p><img src="https://i.loli.net/2020/10/18/v42HsRnYU81jcxd.png" alt="WeChatc0cc55c3c71d394a3ddde498765823f6.png"></p><p>​        先根据每条指令的要求，列出控制信号的汇总：</p><p><img src="https://i.loli.net/2020/10/18/pzA1ytwHLDVRIYc.png" alt="WeChatecdb30288da644a546eac51d2312c7c5.png"></p><p>​        我们可以根据控制信号的汇总，列出每个控制信号的逻辑表达式：</p><p>​        例如：<code>RegDst</code> = <code>add</code> + <code>sub</code> </p><h1 id="微程序设计"><a href="#微程序设计" class="headerlink" title="微程序设计"></a>微程序设计</h1><p>​        为了克服硬布线逻辑控制的缺点，微程序设计采用了类似存储程序的方法解决微操作序列的形成。一条机器指令包一个<strong>微程序</strong>，一个微程序包含若干<strong>微指令</strong>，一条微指令包含一个或几个<strong>微操作</strong>。微程序存储在<strong>控制存储器</strong>中。</p><hr><h2 id="微程序控制单元框图及工作原理"><a href="#微程序控制单元框图及工作原理" class="headerlink" title="微程序控制单元框图及工作原理"></a>微程序控制单元框图及工作原理</h2><p>​        采用微程序设计方法需要为每一条机器指令编写微程序，其中取址操作每条机器指令都是相同的。以下是控制存储器的基本组成。</p><p><img src="https://i.loli.net/2020/10/18/IJr8kC6hawcYPvf.png" alt="WX20201018-165255@2x.png"></p><pre><code>    ## 微指令的编码方式</code></pre><p>​        微程序的编码方式有以下三种</p><ol><li><p>直接编码控制方式</p><p>微指令的每一位代表一个微操作命令。每条指令需要包括所有控制位，所以很长，但是数量少</p></li><li><p>字段直接编码方式</p><p>将一组互斥的微操作放在一个字段内，通过对每个字段译码可以得到所有微操作。（需要留一个字码给什么都不操作）。</p></li><li><p>字段间接编码方式</p><p>一个字段的译码受到另一个字段的影响，进一步缩短了字长，但是削弱了并行控制的能力。</p></li></ol><p><img src="https://i.loli.net/2020/10/18/eatwLz6f2y8QNoP.png" alt="WeChat50727c1cd72c0b504ec50aed17432c48.png"></p><h2 id="微指令序列地址的形成"><a href="#微指令序列地址的形成" class="headerlink" title="微指令序列地址的形成"></a>微指令序列地址的形成</h2><ol><li>直接由微指令的下地址形成</li><li>机器指令的操作码形成</li><li>增量计数法（CMAR） + 1</li><li>分支转移</li><li>通过测试网络</li><li>由硬件产生微程序入口地址</li></ol><h2 id="微指令的格式"><a href="#微指令的格式" class="headerlink" title="微指令的格式"></a>微指令的格式</h2><p>​        微指令的格式与微指令的编码方式有关，通常分为<strong>水平型微指令</strong>和<strong>垂直型微指令</strong>。</p><ul><li>水平型微指令：以上的编码方式都是水平型微指令，特点是指令字长长，速度快，但是指令个数少，控制存储器呈现<strong>矮胖型</strong>。</li><li>垂直型微指令：类似于及其操作码的方式，由操作码规定操作方式，一条微指令有1～2个微命令，控制1～2种操作。控制存储器呈现<strong>高瘦型</strong>。</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 408 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>第四章 设立自己的处理器</title>
       <link href="%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E8%AE%BE%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E5%A4%84%E7%90%86%E5%99%A8/csapp-4/%E7%BB%86%E8%AF%BB%E7%BB%8F%E5%85%B8/%E3%80%8ACSAPP%E3%80%8B/"/>
       <url>%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E8%AE%BE%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E5%A4%84%E7%90%86%E5%99%A8/csapp-4/%E7%BB%86%E8%AF%BB%E7%BB%8F%E5%85%B8/%E3%80%8ACSAPP%E3%80%8B/</url>
