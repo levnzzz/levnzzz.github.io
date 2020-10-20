@@ -1,0 +1,279 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>数据结构之查找 | OnePiece</title><meta name="keywords" content="408"><meta name="author" content="不想画CAD"><meta name="copyright" content="不想画CAD"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="小点：  查找是计算机中经常用到的一种操作，是指在数据集合中寻找满足某种条件的数据元素的过程。查找的过程与查找的结构（查找表）和查找的算法决定。根据是否可以修改查找表分为静态查找表和动态查找表。 查找是根据关键字进行的，至于数据的整体信息，可以通过指针指向。 判断查找效率的标准是平均查找长度**ASL**，可以分为成功ASL和失败ASL。           顺序查找和折半查找顺序查找​">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构之查找">
+<meta property="og:url" content="https://levnzzz.github.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%9F%A5%E6%89%BE/408DS-search/uncategorized/index.html">
+<meta property="og:site_name" content="OnePiece">
+<meta property="og:description" content="小点：  查找是计算机中经常用到的一种操作，是指在数据集合中寻找满足某种条件的数据元素的过程。查找的过程与查找的结构（查找表）和查找的算法决定。根据是否可以修改查找表分为静态查找表和动态查找表。 查找是根据关键字进行的，至于数据的整体信息，可以通过指针指向。 判断查找效率的标准是平均查找长度**ASL**，可以分为成功ASL和失败ASL。           顺序查找和折半查找顺序查找​">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/10/18/aAVc5XrJoiudfCH.jpg">
+<meta property="article:published_time" content="2020-10-20T12:44:34.000Z">
+<meta property="article:modified_time" content="2020-10-20T12:46:36.652Z">
+<meta property="article:author" content="不想画CAD">
+<meta property="article:tag" content="408">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/10/18/aAVc5XrJoiudfCH.jpg"><link rel="shortcut icon" href="https://i.loli.net/2020/10/11/SihaqID2rXypTtj.jpg"><link rel="canonical" href="https://levnzzz.github.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%9F%A5%E6%89%BE/408DS-search/uncategorized/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.2.0',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: true
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: undefined,
+  isSidebar: true,
+  postUpdate: '2020-10-20 20:46:36'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {
+  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }
+})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://i.loli.net/2020/10/11/SihaqID2rXypTtj.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">7</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">5</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E6%9F%A5%E6%89%BE%E5%92%8C%E6%8A%98%E5%8D%8A%E6%9F%A5%E6%89%BE"><span class="toc-number">1.</span> <span class="toc-text">顺序查找和折半查找</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E6%9F%A5%E6%89%BE"><span class="toc-number">1.1.</span> <span class="toc-text">顺序查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%98%E5%8D%8A%E6%9F%A5%E6%89%BE"><span class="toc-number">1.2.</span> <span class="toc-text">折半查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%9D%97%E6%9F%A5%E6%89%BE"><span class="toc-number">1.3.</span> <span class="toc-text">分块查找</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#B%E6%A0%91%E5%92%8CB-%E6%A0%91"><span class="toc-number">2.</span> <span class="toc-text">B树和B+树</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#B%E6%A0%91"><span class="toc-number">2.1.</span> <span class="toc-text">B树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#B%E6%A0%91%E7%9A%84%E9%AB%98%E5%BA%A6%EF%BC%88%E7%A3%81%E7%9B%98%E7%9A%84%E5%AD%98%E5%8F%96%E6%AC%A1%E6%95%B0%EF%BC%89"><span class="toc-number">2.1.1.</span> <span class="toc-text">B树的高度（磁盘的存取次数）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B%E6%95%B0%E7%9A%84%E6%9F%A5%E6%89%BE"><span class="toc-number">2.1.2.</span> <span class="toc-text">B数的查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B%E6%A0%91%E7%9A%84%E6%8F%92%E5%85%A5"><span class="toc-number">2.1.3.</span> <span class="toc-text">B树的插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B%E6%A0%91%E7%9A%84%E5%88%A0%E9%99%A4"><span class="toc-number">2.1.4.</span> <span class="toc-text">B树的删除</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-%E6%A0%91"><span class="toc-number">2.2.</span> <span class="toc-text">B+树</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%A3%E5%88%97%E6%9F%A5%E6%89%BE"><span class="toc-number">3.</span> <span class="toc-text">散列查找</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B0"><span class="toc-number">3.1.</span> <span class="toc-text">散列函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%86%B2%E7%AA%81%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">3.2.</span> <span class="toc-text">处理冲突的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E6%94%BE%E5%AE%9A%E5%9D%80%E6%B3%95"><span class="toc-number">3.2.1.</span> <span class="toc-text">开放定址法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%89%E9%93%BE%E6%B3%95"><span class="toc-number">3.2.2.</span> <span class="toc-text">拉链法</span></a></li></ol></li></ol></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://i.loli.net/2020/10/18/aAVc5XrJoiudfCH.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">OnePiece</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">数据结构之查找</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-10-20T12:44:34.000Z" title="发表于 2020-10-20 20:44:34">2020-10-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-10-20T12:46:36.652Z" title="更新于 2020-10-20 20:46:36">2020-10-20</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><blockquote>
+<p><strong>小点：</strong></p>
+<ul>
+<li>查找是计算机中经常用到的一种操作，是指在数据集合中寻找满足某种条件的数据元素的过程。查找的过程与查找的结构<strong>（查找表）</strong>和查找的算法决定。根据是否可以修改查找表分为<strong>静态查找</strong>表和<strong>动态查找表</strong>。</li>
+<li>查找是根据<strong>关键字</strong>进行的，至于数据的整体信息，可以通过指针指向。</li>
+<li>判断查找效率的标准是平均查找长度**<em>ASL**</em>，可以分为<strong>成功ASL</strong>和<strong>失败ASL</strong>。        </li>
+</ul>
+</blockquote>
+<h1 id="顺序查找和折半查找"><a href="#顺序查找和折半查找" class="headerlink" title="顺序查找和折半查找"></a>顺序查找和折半查找</h1><h2 id="顺序查找"><a href="#顺序查找" class="headerlink" title="顺序查找"></a>顺序查找</h2><p>​        顺序查找是在线性表中从头到尾进行查找。有序的线性表查找成功的ASL为（n+1）/ 2，失败的ASL为（n+1）。</p>
+<p>​        若线性表有序，则可以构建一棵顺序查找判定树。</p>
+<p><img src="https://i.loli.net/2020/10/20/ABVd7Ii6Tmknf8e.png" alt="WeChatb8b442bca19fddec63ab85bd5738e73a.png"></p>
+<p>​        对于查找判定树，计算ASL的方式是</p>
+<ul>
+<li>失败节点：数到失败节点经历的<strong>边数</strong></li>
+<li>成功节点：数到成功节点经历的<strong>节点数</strong></li>
+</ul>
+<h2 id="折半查找"><a href="#折半查找" class="headerlink" title="折半查找"></a>折半查找</h2><p>​        折半查找是算法题常考的点。算法的步骤就是<strong>先判断什么时候左移或者右移</strong>，再通过<strong>二分算法定位</strong>。</p>
+<p>​        为了避免出现死循环，我们要记住二分法规则，<strong>左动左移，右动右移</strong>。下面是一种实现模版<code>while (l &lt; r)</code>版本：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;<span class="comment">/* ... */</span>&#125; <span class="comment">// 检查x是否满足某种性质</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 区间[l, r]被划分成[l, mid]和[mid + 1, r]时使用：</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bsearch_1</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (l &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = l + r &gt;&gt; <span class="number">1</span>;       <span class="comment">// 左移</span></span><br><span class="line">        <span class="keyword">if</span> (check(mid)) r = mid;    <span class="comment">// check()判断mid是否满足性质</span></span><br><span class="line">        <span class="keyword">else</span> l = mid + <span class="number">1</span>;           <span class="comment">// 左区间动</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> l;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 区间[l, r]被划分成[l, mid - 1]和[mid, r]时使用：</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bsearch_2</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (l &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = l + r + <span class="number">1</span> &gt;&gt; <span class="number">1</span>;    <span class="comment">// 右移</span></span><br><span class="line">        <span class="keyword">if</span> (check(mid)) l = mid;</span><br><span class="line">        <span class="keyword">else</span> r = mid - <span class="number">1</span>;            <span class="comment">// 右区间动</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> l;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        当然，折半查找的<strong>ASL</strong>，也可以画出查找树进行计算。</p>
+<h2 id="分块查找"><a href="#分块查找" class="headerlink" title="分块查找"></a>分块查找</h2><p>​        分块查找又称索引顺序查找，将查找表分为若干子块，块内可以无序，但是块间必须有序。</p>
+<h1 id="B树和B-树"><a href="#B树和B-树" class="headerlink" title="B树和B+树"></a>B树和B+树</h1><p>​        树形结构是存储查找表的绝佳结构，由于树的高度是<em>log</em>级别，所以易于数据的查找和修改。</p>
+<hr>
+<h2 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h2><blockquote>
+<p>​        通过二叉平衡查找树，我们可以提高查找速度。但是，当数据量很大时，我们的索引二叉树需要保存在磁盘中时，每下降一层，就会读入一个磁盘快。频繁的I/O操作会极大地拖延时间，所以B-树可以让一个<strong>磁盘块多存几个关键字和指针信息</strong>，构成多路平衡查找树，提高了磁盘的I/O性能。</p>
+</blockquote>
+<p>​        B树又称<em>多路平衡查找树</em>，B数所有节点的最大孩子个数的最大值成为B树的阶，用<em>m</em>表示，一棵<em>m</em>叉B树满足：</p>
+<ul>
+<li>树节点最多有<em>m</em>个子树，包含最多<em>m - 1</em>个关键字</li>
+<li>除了根节点，其他非叶节点至少有*(m + 1) / 2*棵子树。</li>
+<li>每个非叶子结点中存储着<strong>关键字</strong>和指向下一层的节点的指针</li>
+<li>叶子结点都在一个层次上，且<strong>不带信息</strong></li>
+</ul>
+<p><img src="https://i.loli.net/2020/10/20/nceaY789Q5IoZHM.png" alt="image.png"></p>
+<h3 id="B树的高度（磁盘的存取次数）"><a href="#B树的高度（磁盘的存取次数）" class="headerlink" title="B树的高度（磁盘的存取次数）"></a>B树的高度（磁盘的存取次数）</h3><p>​        一般会计算最小高度和最大高度：</p>
+<ul>
+<li>最小高度：在每个节点都取最大关键字个数时</li>
+<li>最大高度：在每个节点都取最小关键字个数时</li>
+</ul>
+<p><img src="https://i.loli.net/2020/10/20/z47EeIkuTXHRgwn.png" alt="WeChatcb65a1b84cb9e117c8599a298b770a0b.png"></p>
+<h3 id="B数的查找"><a href="#B数的查找" class="headerlink" title="B数的查找"></a>B数的查找</h3><p>​        从根节点往下查找</p>
+<ol>
+<li>在B树中找节点：根据指针通过<strong>I/O</strong>操作将结点读入内存</li>
+<li>在结点中找关键字：在内存中通过<strong>顺序查找</strong>或者<strong>折半查找</strong>等内部查找方式找关键词。</li>
+</ol>
+<h3 id="B树的插入"><a href="#B树的插入" class="headerlink" title="B树的插入"></a>B树的插入</h3><p>​        B树的插入都是在最底层非叶节点上，可能会产生溢出现象，需要及时<strong>分裂</strong>维持B树的结构。</p>
+<p>​        B树的插入需要经历<strong>定位</strong>、<strong>插入</strong>和<strong>调整</strong>：</p>
+<ul>
+<li>定位：找到最底层非叶结点合适的位置</li>
+<li>插入：插入到合适的位置</li>
+<li>调整：插入后，观察是否结点产生了溢出（关键字个数超过<em>m - 1</em>），则需要结点<strong>向上</strong>分裂。</li>
+</ul>
+<p><img src="https://i.loli.net/2020/10/20/5NCVUZLtwrO6kGB.png" alt="WeChatc8b88ee24491c4f7d2174106824d2e7b.png"></p>
+<h3 id="B树的删除"><a href="#B树的删除" class="headerlink" title="B树的删除"></a>B树的删除</h3><p>​        B树的删除也可能出现结点关键字个数少于<em>（m + 1）/ 2</em> 的情况，需要<strong>合并</strong>维持B树结构。B树被删除关键字不在终端时，可以用删除他的前驱或者后继代替，最后转化为删除终端的某个节点。</p>
+<p>​        删除终端节点的有三种情况：</p>
+<ul>
+<li>直接删除关键字：这时候删除不会影响结构</li>
+<li>兄弟够借：兄弟可以借一个关键字来重新达到平衡</li>
+<li>兄弟不够借：和兄弟，双亲一起组成一个结点，再调整少了一个结点的双亲</li>
+</ul>
+<p><img src="https://i.loli.net/2020/10/20/tEfJ1zo3nxL9Fpu.png" alt="WeChat933db3070b9bb2e6673ea95f1a4938d2.png"></p>
+<h2 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h2><blockquote>
+<p>B树虽然解决了磁盘I/O问题，但是无法进行顺序遍历。B+树所有的<strong>叶子结点</strong>中包含了<strong>全部</strong>关键字的信息，及指向含有这些关键字记录的指针，且叶子结点本身依关键字的大小自小而大的顺序链接，所有的非终端结点可以看成是索引部分，结点中<strong>仅含有其子树根结点中最大（或最小）关键字</strong>， (而B 树的非终节点也包含需要查找的有效信息)，所以还能进一步降低I/O次数。</p>
+</blockquote>
+<p>​        一颗<em>m</em>阶B+树满足：</p>
+<ul>
+<li>树节点最多有<em>m</em>个子树，包含最多<em>m</em>个关键字</li>
+</ul>
+<p>除了根节点，其他非叶节点至少有*(m + 1) / 2*棵子树。</p>
+<ul>
+<li>节点的子树个数和关键字个数相同。</li>
+<li>所有<em>叶节点</em>包含<strong>全部关键字及指向相应记录的指针</strong>，叶节点按大小顺序排序且相互连接起来。</li>
+<li>所有<em>分支节点</em>只包含子节点的<strong>最大（最小）关键字</strong>和指向子节点的指针。</li>
+</ul>
+<p><img src="https://i.loli.net/2020/10/20/QXKuHjEBJTbDUWa.jpg" alt="p.jpg"></p>
+<h1 id="散列查找"><a href="#散列查找" class="headerlink" title="散列查找"></a>散列查找</h1><blockquote>
+<p>散列查找通过某种<strong>散列函数</strong>在位置和记录关键字中建立关系，Hash(key) = Addr。当多个关键字映射到一个地址时，就产生了<strong>冲突</strong>。散列表是根据关键字直接进行访问的数据结构，建立了关键字和存储地址之间的映射关系。</p>
+</blockquote>
+<h2 id="散列函数"><a href="#散列函数" class="headerlink" title="散列函数"></a>散列函数</h2><p>​        散列函数常用的有：</p>
+<ul>
+<li>直接定址法：**<em>H(key) = key 或者 H(key) = a ✖️key + b**</em></li>
+<li>除留余数法：**<em>H(key) = key % p**</em>，<em>p</em>是不大于但是最接近散列表长度<em>m</em>的指数</li>
+<li>数字分析法、平方去中法；</li>
+</ul>
+<h2 id="处理冲突的方法"><a href="#处理冲突的方法" class="headerlink" title="处理冲突的方法"></a>处理冲突的方法</h2><p>​        当产生冲突时，需要为产生冲突的关键字找到下一个Hash地址，</p>
+<h3 id="开放定址法"><a href="#开放定址法" class="headerlink" title="开放定址法"></a>开放定址法</h3><p>​        所谓开放定址法就是散列表的空闲表项既可以向同义词表项开放，又向非同义词开放**<em>H = (H(key) + d) % m**</em>，根据<em>d</em>的取值可以分为：</p>
+<ul>
+<li>线性探测法：<em>d</em> = 0 ，1， 2， 3 …</li>
+<li>平方探测法：<em>d</em> = 0，1，-1，4，-4，9，-9…</li>
+<li>再散列法：*d = Hash_2(key)*，再通过一个散列函数来计算探测增量</li>
+</ul>
+<p><strong>注意</strong>：在开放定址法中，不能物理删除，只能通过打标记等逻辑删除方法。再定期进行物理删除。</p>
+<h3 id="拉链法"><a href="#拉链法" class="headerlink" title="拉链法"></a>拉链法</h3><blockquote>
+<p>通过临界表的方式来记录同义词。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">1</span>) 拉链法                          <span class="comment">// 和临界表的存储相似</span></span><br><span class="line">    <span class="keyword">int</span> h[N], e[N], ne[N], idx;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 向哈希表中插入一个数</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> k = (x % N + N) % N;   <span class="comment">// 保证不会出现负余数</span></span><br><span class="line">        e[idx] = x;</span><br><span class="line">        ne[idx] = h[k];</span><br><span class="line">        h[k] = idx ++ ;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在哈希表中查询某个数是否存在</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> k = (x % N + N) % N;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = h[k]; i != <span class="number">-1</span>; i = ne[i])</span><br><span class="line">            <span class="keyword">if</span> (e[i] == x)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">(<span class="number">2</span>) 开放寻址法         </span><br><span class="line">    <span class="keyword">int</span> h[N];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果x在哈希表中，返回x的下标；如果x不在哈希表中，返回x应该插入的位置</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> t = (x % N + N) % N;</span><br><span class="line">        <span class="keyword">while</span> (h[t] != null &amp;&amp; h[t] != x)</span><br><span class="line">        &#123;</span><br><span class="line">            t ++ ;</span><br><span class="line">            <span class="keyword">if</span> (t == N) t = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> t;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">不想画CAD</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://levnzzz.github.io/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%9F%A5%E6%89%BE/408DS-search/uncategorized/">https://levnzzz.github.io/数据结构之查找/408DS-search/uncategorized/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://levnzzz.github.io" target="_blank">OnePiece</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/408/">408</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/10/18/aAVc5XrJoiudfCH.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/cpu%E7%9A%84%E4%B8%A4%E7%A7%8D%E8%AE%BE%E8%AE%A1%E6%96%B9%E5%BC%8F/408-1/uncategorized/"><img class="next-cover" src="https://i.loli.net/2020/10/18/aAVc5XrJoiudfCH.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">CPU的两种设计方式</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/cpu的两种设计方式/408-1/uncategorized/" title="CPU的两种设计方式"><img class="cover" src="https://i.loli.net/2020/10/18/aAVc5XrJoiudfCH.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-18</div><div class="title">CPU的两种设计方式</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></article></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 By 不想画CAD</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Forever Youthful Forever Weeping</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const initData = {
+      el: '#vcomment',
+      appId: '',
+      appKey: '',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'en',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
