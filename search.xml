@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>数据结构之外部排序</title>
+      <link href="%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E5%A4%96%E9%83%A8%E6%8E%92%E5%BA%8F/408DS-exsort/uncategorized/"/>
+      <url>%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E5%A4%96%E9%83%A8%E6%8E%92%E5%BA%8F/408DS-exsort/uncategorized/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>对于大文件，内存中无法一次性保存所有数据，需要将数据记录的外存上，排序时在一点点读入内存进行排序。外部排序一定是基于归并的排序。</p></blockquote><h1 id="外部排序的基本方法"><a href="#外部排序的基本方法" class="headerlink" title="外部排序的基本方法"></a>外部排序的基本方法</h1><p>​        外部排序是基于归并排序的。具体步骤包块两个方面：</p><ul><li>大文件存储在多个磁盘块上，使几个磁盘块为一组文件，在内存中先使用内部排序对每一组文件排序并写回外存。此时这些有序文件称为<strong>归并段</strong>或者<strong>顺串</strong></li><li>对这些<strong>归并段</strong>进行逐趟归并，使得<strong>归并段</strong>逐渐增大，最后形成整个有序文件。</li></ul><p>​        根据公式，外部排序的总时间 = 内部排序时间 + <strong>磁盘I/O时间</strong> + 内部归并所需时间。</p><p>​        磁盘I/O时间很慢，所以我们尽量要减少。且不会印象其他的时间。</p><h1 id="多路平衡归并与败者树"><a href="#多路平衡归并与败者树" class="headerlink" title="多路平衡归并与败者树"></a>多路平衡归并与败者树</h1><p>​        多路平衡归并树可以减少归并的次数，从而<strong>降低磁盘的I/O次数</strong>。但是增加了归并路数，会增加内部选择最小值的时间，从而增加<strong>内部归并所需时间</strong>。所以我们进一步引入<strong>败者树</strong>，将归并时间固定不变。</p><p>​        多从2路到多路（k路），增大k可以减少外存信息读写时间，但k个归并段中选取最小的记录需要比较*<strong>k-1**<em>次， 为得到u个记录的一个有序段共需要</em></strong>(u-1)(k-1)<strong>*次，若归并趟数为<strong>s</strong>次，那么对n个记录的文件进行外排时，内部归并过程中进行的总的比较次数为 *</strong>s(n-1)(k-1)<strong><em>，也即</em></strong>(向上取整)(logkm)(k-1)(n-1)<strong>* = *</strong>(向上取整)(log2m/log2k)(k-1)(n-1)<strong><em>，而</em></strong>(k- 1)/log2k*<strong>随k增而增因此内部归并时间随k增长而增长了，抵消了外存读写减少的时间，这样做不行，由此引出了**<em>“败者树”tree of loser</em></strong>的使用。在内部归并过程中利用败者树将k个归并段中选取最小记录比较的次数降为(向上取整)(log2k)次使总比较次数为**<em>(向上取整) (log2m)(n-1)**</em>，<em>与k无关</em>。</p><p><img src="https://i.loli.net/2020/10/20/xWjmQYqgL925tSp.png" alt="WeChatdabc80991c706faeb48c1d690b70f392.png"></p><p>​        <strong>败者树</strong>视为一种完全二叉树，叶子节点保存当前参见比较的记录，非叶子结点记忆左右子树中的<strong>失败者（归并段）</strong>，<strong>胜利者（归并段</strong>继续往上进行比较一直到根节点。最后胜利者中的记录输出。</p><h1 id="置换—选择排序（生成初始归并段）"><a href="#置换—选择排序（生成初始归并段）" class="headerlink" title="置换—选择排序（生成初始归并段）"></a>置换—选择排序（生成初始归并段）</h1><p>​        <em>减少归并段个数</em>也可以减少归并次数。但是内部排序的最长归并段收到内存容量限制，所以采用<strong>置换—选择排序</strong>生成长的初始归并段。过程很简单，内存只需要建立<strong>工作区WA</strong>，不断输出有序的最小值。</p><p><img src="https://i.loli.net/2020/10/20/qOCA3UvrYDtnbHj.png" alt="WeChat76c70f1b133313ebc0f677f98893870b.png"></p><h1 id="最佳归并树"><a href="#最佳归并树" class="headerlink" title="最佳归并树"></a>最佳归并树</h1><p>​        最后，为了尽可能减少<em>磁盘I/O</em>时间，我们可以利用哈夫曼树的原理，每次选择最少的几个归并段进程归并排序。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 408 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>数据结构之查找</title>
       <link href="%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%9F%A5%E6%89%BE/408DS-search/uncategorized/"/>
       <url>%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%9F%A5%E6%89%BE/408DS-search/uncategorized/</url>
